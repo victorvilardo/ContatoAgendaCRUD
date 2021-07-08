@@ -5,7 +5,7 @@ public class Contato {
 	private String nome;
 	private String email;
 	private String endereco;
-	private Long id;
+	private Integer id;
 	
 	
 	
@@ -27,10 +27,10 @@ public class Contato {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	
