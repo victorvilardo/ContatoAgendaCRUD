@@ -11,9 +11,9 @@ public class ConnectionFactory {
 	
 	
 	
-		 private final static String url ="jdbc:sqlserver://localhost:1433;databaseName=DBPROG2";
-		 private final static String userName = "SENAC2";
-		 private final static String password = "senac123"; 
+		 private final static String url ="jdbc:sqlserver://192.100.100.59:1433;databaseName=treinamento_java";
+		 private final static String userName = "sysmestra";
+		 private final static String password = "mestrasys"; 
 		 public static Connection getConnection() {
 			 try {
 			 return DriverManager.getConnection(url, userName, password);

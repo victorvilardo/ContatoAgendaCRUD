@@ -17,13 +17,7 @@ public interface ContatoDao {
 	Integer incluirContato (Contato contato);
 	
 	
-	/**
-	 * Metodo que ira buscar um contato com base no nome informado
-	 * @param contato
-	 * @return
-	 * @throws SQLException 
-	 */
-	Contato buscarContato (String contato) throws SQLException;
+
 	
 	
 	/**
@@ -39,5 +33,11 @@ public interface ContatoDao {
 	 * @param contato
 	 */
 	void update(Contato contato);
+	
+	/**
+	 * Metodo para excluir um contato
+	 * @param contato
+	 */
+	void excluir(Contato contato);
 	
 }

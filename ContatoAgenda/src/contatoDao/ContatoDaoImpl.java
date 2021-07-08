@@ -17,22 +17,7 @@ private Connection con;
 	public ContatoDaoImpl() throws SQLException{
 		this.con = ConnectionFactory.getConnection();
 	}
-	
 
-	@Override
-	public Contato buscarContato(String nome) throws SQLException {
-	
-		//Crie um método para pesquisar um contato inserido no banco de dados (getContato) e retornar suas informações armazenadas, 
-		//utilizando como entrada o nome do contato passado para a classe Scanner e também crie uma classe para fazer os testes desta pesquisa
-		
-		StringBuilder sql = new StringBuilder ("select * from Contatos where nome =: nome ");
-		PreparedStatement stmt = con.prepareStatement(sql.toString());
-		ResultSet rs = stmt.executeQuery();
-		
-		
-		
-		return null;
-	}
 
 	@Override
 	public List<Contato> listarContatos() throws SQLException {
@@ -137,7 +122,7 @@ private Connection con;
 	public void update(Contato contato){
 		 
 		 String sql = "UPDATE contatos SET nome = ?, email = ?, endereco = ?" +
-		 " WHERE id = ?";
+		 " WHERE = '" + contato.getId() +  "'";
 		 
 		 Connection conn = null;
 		 PreparedStatement pstm = null;
@@ -146,8 +131,8 @@ private Connection con;
 		 //Cria uma conexão com o banco
 		 
 		 //Cria um PreparedStatment, classe usada para executar a query
-		 pstm = conn.prepareStatement(sql);
-		 
+		 pstm = con.prepareStatement(sql);
+	
 		 //Adiciona o valor do primeiro parâmetro da sql
 		 pstm.setString(1, contato.getNome());
 		 //Adicionar o valor do segundo parâmetro da sql
@@ -183,7 +168,47 @@ private Connection con;
 		 
 		 	}
 		 }
-	}	
+	}
+	
+	  public void excluir(Contato contato) {
+		    String sql = "DELETE FROM contatos WHERE id ='" + contato.getId() + "'";
+		    try {
+				PreparedStatement stmt = con.prepareStatement(sql);
+				stmt.execute();
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		  }
+
+	  
+	  public Contato consultarPorId(Integer id) {
+		   
+		    Contato contato = null;
+		    try {
+		      String sql = "SELECT * FROM contatos WHERE nome = '" + id + "'";
+		      PreparedStatement stmt = con.prepareStatement(sql);
+		      ResultSet rs = stmt.executeQuery(sql.toString());
+
+		      if(rs.next()) {
+		         contato = new Contato();
+		        contato.setNome(rs.getString("Nome"));
+		        contato.setEmail(rs.getString("Email"));
+		        contato.setEndereco(rs.getString("Endereço"));
+		        
+		        stmt.close();
+		        con.close();
+		      }
+		    } catch (SQLException ex) {
+		      System.out.println("Nao conseguiu consultar os dados do Contato.");
+		    } 
+
+		    return contato;
+		  }  
+	  
+	  
+	  
 }
 
 
